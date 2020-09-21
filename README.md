@@ -12,6 +12,8 @@
 
 [https://docs.docker.com/docker-for-windows/install-windows-home/](https://docs.docker.com/docker-for-windows/install-windows-home/)
 
+[https://docs.microsoft.com/en-us/windows/wsl/install-win10](https://docs.microsoft.com/en-us/windows/wsl/install-win10)
+
 [https://docs.docker.com/compose/install/](https://docs.docker.com/compose/install/)
 
 [https://hub.docker.com/\_/postgres/](https://hub.docker.com/_/postgres/)

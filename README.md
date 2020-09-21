@@ -2,7 +2,7 @@
 
 ## Nodejs - Express
 
-[https://insomnia.rest/download/designer/?](https://insomnia.rest/download/designer/?)
+[https://insomnia.rest/download/core/?](https://insomnia.rest/download/core/?)
 
 [https://docs.docker.com/docker-for-mac/install/](https://docs.docker.com/docker-for-mac/install/)
 

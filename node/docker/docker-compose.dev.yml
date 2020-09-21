@@ -42,6 +42,7 @@ services:
   # Use 172.17.0.1 as server to connect
   adminer:
     image: adminer:4.7-standalone
+    container_name: todo-server-adminer-container
     ports:
       - ${ADMINER_PORT}:${ADMINER_PORT}
 

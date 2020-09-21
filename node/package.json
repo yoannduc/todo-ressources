@@ -1,0 +1,12 @@
+{
+  "name": "sample-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "dev": "./wait-for-postgres.sh -- nodemon --exec node index.js"
+  }
+}

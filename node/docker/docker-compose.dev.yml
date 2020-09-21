@@ -1,0 +1,48 @@
+# ================================================================ #
+# docker-compose development                                       #
+# ================================================================ #
+version: '3'
+
+services:
+  api:
+    env_file:
+      - ../.env
+    ports:
+      - ${API_PORT}:${API_PORT}
+    networks:
+      network:
+        ipv4_address: ${API_IP}
+    build:
+      context: ../
+      dockerfile: Dockerfile
+    image: todo-server-api-image
+    container_name: todo-server-api-container
+    command: yarn dev # "dev": "./wait-for-postgres.sh -- nodemon --exec node index.js"
+    volumes:
+      - ../:/usr/src/app
+      - /usr/src/app/node_modules
+
+  postgres:
+    image: postgres:12.3
+    container_name: todo-server-postgres-container
+    networks:
+      network:
+        ipv4_address: ${DATABASE_IP}
+    env_file:
+      - ../.env
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    environment:
+      POSTGRES_DB: ${DATABASE_NAME}
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+    volumes:
+      - ./db-init/:/docker-entrypoint-initdb.d/
+
+networks:
+  network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.13.12.0/16

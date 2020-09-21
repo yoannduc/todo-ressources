@@ -39,6 +39,12 @@ services:
     volumes:
       - ./db-init/:/docker-entrypoint-initdb.d/
 
+  # Use 172.17.0.1 as server to connect
+  adminer:
+    image: adminer:4.7-standalone
+    ports:
+      - ${ADMINER_PORT}:${ADMINER_PORT}
+
 networks:
   network:
     driver: bridge

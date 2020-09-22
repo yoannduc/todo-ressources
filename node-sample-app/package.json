@@ -10,5 +10,9 @@
     "docker:dev": "docker-compose -f docker/docker-compose.dev.yml up",
     "docker:dev:down": "docker-compose -f docker/docker-compose.dev.yml down",
     "dev": "./wait-for-postgres.sh -- nodemon --exec node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
   }
 }

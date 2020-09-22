@@ -1,7 +1,6 @@
 const morgan = require('morgan')
 const express = require('express')
 
-// App and logger
 const app = express()
 
 const PORT = process.env.API_PORT || 3000

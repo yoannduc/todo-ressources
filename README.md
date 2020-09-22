@@ -1,4 +1,4 @@
-# Ressources cours Syllabus
+# Ressources cours D21 - Node/Electron
 
 ## Nodejs
 

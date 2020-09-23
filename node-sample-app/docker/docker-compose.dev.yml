@@ -15,8 +15,8 @@ services:
     build: # Define which Dockerfile to use for container
       context: ../
       dockerfile: Dockerfile
-    image: todo-server-api-image # Name of the created image
-    container_name: todo-server-api-container # Name of the container
+    image: sample-app-api-image # Name of the created image
+    container_name: sample-app-api-container # Name of the container
     command: yarn dev # Override the default command
     volumes:
       - ../:/usr/src/app # Load our project from local machine to the image workdir
@@ -24,7 +24,7 @@ services:
 
   postgres: # Define postgres service
     image: postgres:12.3 # Use a tagged postgres image
-    container_name: todo-server-postgres-container # Define container name
+    container_name: sample-app-postgres-container # Define container name
     networks:
       network: # Use the created network for our container
         ipv4_address: ${DATABASE_IP} # Use the .env file IP address for container. Note that the IP must be within subnet range
@@ -39,7 +39,7 @@ services:
 
   adminer: # Define adminer service
     image: adminer:4.7-standalone # Use tagged adminer image
-    container_name: todo-server-adminer-container # Define container name
+    container_name: sample-app-adminer-container # Define container name
     networks:
       network: # Use the created network for our container
         ipv4_address: ${ADMINER_IP} # Use the .env file IP address for container. Note that the IP must be within subnet range

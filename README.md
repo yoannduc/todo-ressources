@@ -40,6 +40,8 @@
 
 [https://www.electronjs.org/docs/tutorial/first-app#installing-electron](https://www.electronjs.org/docs/tutorial/first-app#installing-electron)
 
+[https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/commonIssues.html#blank-screen-on-builds-but-works-fine-on-serve](https://nklayman.github.io/vue-cli-plugin-electron-builder/guide/commonIssues.html#blank-screen-on-builds-but-works-fine-on-serve)
+
 [https://github.com/electron/electron-api-demos-building](https://github.com/electron/electron-api-demos-building)
 
 [https://github.com/electron/simple-samples](https://github.com/electron/simple-samples)

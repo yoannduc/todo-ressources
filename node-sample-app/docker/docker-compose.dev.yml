@@ -1,0 +1,57 @@
+# ================================================================ #
+# docker-compose development                                       #
+# ================================================================ #
+version: '3'
+
+services:
+  api: # Define api service
+    env_file: # Use a file to load env variables in container (can then be accessed like `process.env.NODE_ENV` in js)
+      - ../.env # Load .env file to container as env variables
+    ports:
+      - ${API_PORT}:${API_PORT}
+    networks:
+      network: # Use the created network for our container
+        ipv4_address: ${API_IP} # Use the .env file IP address for container. Note that the IP must be within subnet range
+    build: # Define which Dockerfile to use for container
+      context: ../
+      dockerfile: Dockerfile
+    image: sample-app-api-image # Name of the created image
+    container_name: sample-app-api-container # Name of the container
+    command: yarn dev # Override the default command
+    volumes:
+      - ../:/usr/src/app # Load our project from local machine to the image workdir
+      - /usr/src/app/node_modules # Freeze node modules so local node_modules do not override those in container (OS differences)
+
+  postgres: # Define postgres service
+    image: postgres:12.3 # Use a tagged postgres image
+    container_name: sample-app-postgres-container # Define container name
+    networks:
+      network: # Use the created network for our container
+        ipv4_address: ${DATABASE_IP} # Use the .env file IP address for container. Note that the IP must be within subnet range
+    ports:
+      - ${DATABASE_PORT}:${DATABASE_PORT}
+    environment: # Define manual env variables  (not from a file)
+      POSTGRES_DB: ${DATABASE_NAME} # Define POSTGRES_DB env variable as we named ours DATABASE_DB to be generic
+      POSTGRES_USER: ${DATABASE_USERNAME} # Define POSTGRES_USER env variable as we named ours DATABASE_USERNAME to be generic
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD} # Define POSTGRES_PASSWORD env variable as we named ours DATABASE_PASSWORD to be generic
+    volumes:
+      - ./db-init/:/docker-entrypoint-initdb.d/ # Load our local file to the init entrypoint of the container. All *.sql file will be loaded on creation. See "Initialization scripts" on https://hub.docker.com/_/postgres/
+
+  adminer: # Define adminer service
+    image: adminer:4.7-standalone # Use tagged adminer image
+    container_name: sample-app-adminer-container # Define container name
+    networks:
+      network: # Use the created network for our container
+        ipv4_address: ${ADMINER_IP} # Use the .env file IP address for container. Note that the IP must be within subnet range
+    ports:
+      - ${ADMINER_PORT}:${ADMINER_PORT}
+    environment: # Define manual env variables (not from a file)
+      ADMINER_DEFAULT_SERVER: postgres # Use postgres service name as default host for connexion. You can also use 172.17.0.1 as it is the bridge IP between your machine and docker
+
+networks: # Define compose available networks
+  network: # Name of our network
+    driver: bridge # Use bridge driver. (FROM DOC) Bridge networks are usually used when your applications run in standalone containers that need to communicate
+    ipam: # IP Address Management
+      driver: default # Use default driver
+      config:
+        - subnet: 172.13.12.0/16 # Use a subnet for the network. All IP addresses of services that will use this network should be in range [172.13.12.1, 172.13.12.255]

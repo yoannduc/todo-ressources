@@ -1,0 +1,21 @@
+{
+  "name": "sample-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
+  "scripts": {
+    "docker:dev": "docker-compose -f docker/docker-compose.dev.yml up",
+    "docker:dev:down": "docker-compose -f docker/docker-compose.dev.yml down",
+    "docker:dang": "if [ ! -z \"$(docker images -f \"dangling=true\"  -q)\" ]; then docker rmi -f $(docker images -f \"dangling=true\"  -q); fi",
+    "docker:rmi": "if [ ! -z \"$(docker images -f \"reference=sample-app*\"  -q)\" ]; then docker rmi -f $(docker images -f \"reference=sample-app*\"  -q); fi",
+    "docker:clean": "yarn docker:dev:down && yarn docker:rmi && yarn docker:dang",
+    "dev": "./wait-for-postgres.sh -- nodemon --exec node index.js"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "morgan": "^1.10.0"
+  }
+}

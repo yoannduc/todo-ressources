@@ -25,6 +25,25 @@ app.use(
 // Load root route
 app.get('/', (req, res) => res.status(200).json({ message: 'My API' }))
 
+app.post('/items', (req, res) => {
+  console.log(req.body)
+  const { name } = req.body
+
+  if (name == null || typeof name !== 'string') {
+    return res.status(400).json({
+      error: `"name" not found in body or was not a string (inputed: ${name})`,
+    })
+  }
+
+  index += 1
+
+  const item = { id: index, name }
+
+  array.push(item)
+
+  return res.status(200).json(item)
+})
+
 if (process.env.NODE_ENV !== 'test') {
   app.listen(PORT, () => {
     console.log(`API is listening on port ${PORT}`)

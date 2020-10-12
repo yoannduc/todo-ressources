@@ -12,6 +12,16 @@ app.use(
   ),
 )
 
+// Use bodyparser middleware to parse the various inputs
+app.use(bodyParser.json({ limit: '10mb' }))
+app.use(
+  bodyParser.urlencoded({
+    limit: '10mb',
+    extended: true,
+    parameterLimit: 10000,
+  }),
+)
+
 // Load root route
 app.get('/', (req, res) => res.status(200).json({ message: 'My API' }))
 

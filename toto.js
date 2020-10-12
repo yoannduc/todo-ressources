@@ -59,7 +59,6 @@ app.get('/items/:id', (req, res) => {
 })
 
 app.post('/items', (req, res) => {
-  console.log(req.body)
   const { name } = req.body
 
   if (name == null || typeof name !== 'string') {
@@ -75,6 +74,43 @@ app.post('/items', (req, res) => {
   array.push(item)
 
   return res.status(200).json(item)
+})
+
+app.put('/items/:id', (req, res) => {
+  const { name } = req.body
+  const { id } = req.params
+
+  const item = array.findIndex((e) => e.id == id)
+
+  if (item === -1) {
+    return res.status(400).json({ error: `param ${id} not known` })
+  }
+
+  if (name == null || typeof name !== 'string') {
+    return res.status(400).json({
+      error: `"name" not found in body or was not a string (inputed: ${name})`,
+    })
+  }
+
+  array[item].name = name
+
+  return res.status(200).json(array[item])
+})
+
+app.delete('/items/:id', (req, res) => {
+  const { id } = req.params
+
+  const itemId = array.findIndex((e) => e.id == id)
+
+  if (itemId === -1) {
+    return res.status(400).json({ error: `param ${id} not known` })
+  }
+
+  const itemToDelete = array[itemId]
+
+  array.splice(itemId, 1)
+
+  return res.status(200).json(itemToDelete)
 })
 
 if (process.env.NODE_ENV !== 'test') {

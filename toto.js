@@ -1,5 +1,6 @@
 const morgan = require('morgan')
 const express = require('express')
+const bodyParser = require('body-parser')
 
 const app = express()
 
@@ -24,6 +25,38 @@ app.use(
 
 // Load root route
 app.get('/', (req, res) => res.status(200).json({ message: 'My API' }))
+
+const array = [
+  {
+    id: 1,
+    name: 'myFirstItem',
+  },
+  {
+    id: 2,
+    name: 'mySecondItem',
+  },
+  {
+    id: 3,
+    name: 'myThirdItem',
+  },
+]
+
+let index = 3
+
+app.get('/items', (req, res) => res.status(200).json(array))
+
+app.get('/items/:id', (req, res) => {
+  // Exactement équivalent à const id = req.params.id
+  const { id } = req.params
+
+  const item = array.find((e) => e.id == id)
+
+  if (item == null) {
+    return res.status(400).json({ error: `param ${id} not known` })
+  }
+
+  return res.status(200).json(item)
+})
 
 app.post('/items', (req, res) => {
   console.log(req.body)

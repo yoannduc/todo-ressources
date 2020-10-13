@@ -1,5 +1,13 @@
 # Docker ressources
 
+[https://docs.docker.com/get-started/nodejs/build-images/](https://docs.docker.com/get-started/nodejs/build-images/)
+
+[https://docker-curriculum.com/](https://docker-curriculum.com/)
+
+[https://www.tutorialspoint.com/docker/index.htm](https://www.tutorialspoint.com/docker/index.htm)
+
+![docker cheatsheet](src/DockerCheatsheet.png)
+
 Afficher la liste de ses containers lancés
 
 ```bash
@@ -12,7 +20,7 @@ Afficher la liste de tous ses containers (même arrêtés)
 docker ps -a
 ```
 
-![alt text](src/dockerps-a.png)
+![docker ps -a](src/dockerps-a.png)
 
 Voir les logs d'un container
 
@@ -38,7 +46,7 @@ Voir la liste des images
 docker images
 ```
 
-![alt text](src/dockerimages.png)
+![docker images](src/dockerimages.png)
 
 Supprimer une image
 
